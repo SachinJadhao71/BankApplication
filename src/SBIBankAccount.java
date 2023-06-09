@@ -56,26 +56,47 @@ public class SBIBankAccount implements BankAccInterface{
 
     @Override
     public String fetchBalance(String passWord) {
-        return null;
+        if(this.password.equals(passWord)){
+            return "Your Current Balance Is : " + this.balance;
+        }
+        return "PassWord did not matched";
     }
 
     @Override
     public double addMoney(int amount) {
-        return 0;
+        this.balance += amount;
+
+        return this.balance;
     }
 
     @Override
     public String withDrawMoney(String passward, int amount) {
-        return null;
+        if(this.password.equals(password)){
+            if(amount <= this.balance){
+                this.balance -= amount;
+                return "Your Money Has Been WithDrawn !! And your remaining balance is " + this.balance;
+            }
+            else{
+                return "Insufficient balance";
+            }
+        }
+
+        else {
+            return "Incorrect passWord";
+        }
     }
 
     @Override
     public String ChangePassword(String newPassward, String oldpassword) {
-        return null;
+        if(this.password.equals(oldpassword)){
+            this.password = newPassward;
+            return "your passWord has been changed successfully";
+        }
+        return "Old PassWord did not matched";
     }
 
     @Override
     public double checkInterest(int years) {
-        return 0;
+        return (years * interestRate * this.balance) /100;
     }
 }
